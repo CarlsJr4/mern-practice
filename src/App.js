@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
+import './stylesheets/App.css';
 
 // Your goal is to build a form that submits posts to the app
 function App() {
   return (
     <div className="App">
-			<h1>All social media posts:</h1>
+			<h1>Make a post:</h1>
     </div>
   );
 }
