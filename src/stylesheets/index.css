@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+input, textarea {
+	max-width: 15%;
+	margin-bottom: 1rem;
+}
+
+input[type='submit'] {
+	align-self: flex-start;
+}
