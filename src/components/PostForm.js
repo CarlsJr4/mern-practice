@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function PostForm() {
+export default function PostForm({getPosts}) {
 	const [formData, setFormData] = useState({});
 
 	function handleSubmit(e) {
@@ -13,6 +13,7 @@ export default function PostForm() {
 				console.log(err) 
 			});
 			// Call a form handler here to update the app's posts
+			getPosts();
 		setFormData({});
 	}
 

@@ -11,21 +11,19 @@ function App() {
 	async function getPosts() {
 		const allPosts = await axios.get('http://localhost:3000/api/posts');
 		updatePosts(allPosts.data);
-		console.log(posts);
 	}
 
-	// Warning: This effect will not work for PUT requests because the length of the posts doesn't change
-	// However, using posts as a second argument triggers an infinite loop, not sure why
+	// We can display the posts upon render, but what about when we want to update the list?
 	useEffect(() => {
 		getPosts()
-	}, [posts.length])
+	}, []);
 
   return (
     <div className="App">
 			<h1>Today's posts:</h1>
 			<AllPosts data={posts} />
 			<h1>Make a post:</h1>
-			<PostForm />
+			<PostForm getPosts={getPosts} />
     </div>
   );
 }
