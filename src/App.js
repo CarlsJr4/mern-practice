@@ -8,12 +8,13 @@ import AllPosts from './components/AllPosts';
 function App() {
 	const [posts, updatePosts] = useState([]);
 
+	// Function is separated so that we can manually call it when submitting a form
 	async function getPosts() {
 		const allPosts = await axios.get('http://localhost:3000/api/posts');
 		updatePosts(allPosts.data);
 	}
 
-	// We can display the posts upon render, but what about when we want to update the list?
+	// Retrieve all posts upon mounting of the app
 	useEffect(() => {
 		getPosts()
 	}, []);
