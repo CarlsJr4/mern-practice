@@ -14,6 +14,8 @@ function App() {
 		console.log(posts);
 	}
 
+	// Warning: This effect will not work for PUT requests because the length of the posts doesn't change
+	// However, using posts as a second argument triggers an infinite loop, not sure why
 	useEffect(() => {
 		getPosts()
 	}, [posts.length])
@@ -21,7 +23,7 @@ function App() {
   return (
     <div className="App">
 			<h1>Today's posts:</h1>
-			<AllPosts />
+			<AllPosts data={posts} />
 			<h1>Make a post:</h1>
 			<PostForm />
     </div>

@@ -12,6 +12,7 @@ export default function PostForm() {
 			.catch((err) => {
 				console.log(err) 
 			});
+			// Call a form handler here to update the app's posts
 		setFormData({});
 	}
 
