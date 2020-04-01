@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function PostForm() {
 	const [formData, setFormData] = useState({});
@@ -6,6 +7,11 @@ export default function PostForm() {
 	function handleSubmit(e) {
 		e.preventDefault();
 		e.target.reset();
+		axios.post('https://localhost:3000', formData)
+			.then((res) => console.log(res))
+			.catch((err) => {
+				console.log(err) 
+			});
 		setFormData({});
 	}
 
@@ -20,8 +26,6 @@ export default function PostForm() {
 
 	return (
 		<form 
-			action="/api/posts" 
-			method="post"
 			onSubmit={handleSubmit}
 		>
 			<label 
