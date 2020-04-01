@@ -7,7 +7,7 @@ export default function PostForm() {
 	function handleSubmit(e) {
 		e.preventDefault();
 		e.target.reset();
-		axios.post('https://localhost:3000', formData)
+		axios.post('http://localhost:3000/api/posts', formData)
 			.then((res) => console.log(res))
 			.catch((err) => {
 				console.log(err) 
