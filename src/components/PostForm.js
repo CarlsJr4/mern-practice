@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 
 export default function PostForm() {
-	const [formData, setFormData] = useState({
-		title: '',
-		author: '',
-		body: ''
-	});
+	const [formData, setFormData] = useState({});
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		e.target.reset();
+		setFormData({});
+	}
 
 	function handleInputChange(e) {
 		const target = e.target; // Input being updated
 		const {name, value} = target // Extract the name and value of your target
-
 		setFormData({
 			...formData,
 			[name]: value
@@ -18,7 +19,11 @@ export default function PostForm() {
 	}
 
 	return (
-		<form action="/api/posts" method="post">
+		<form 
+			action="/api/posts" 
+			method="post"
+			onSubmit={handleSubmit}
+		>
 			<label 
 				htmlFor="title">
 					Title:
