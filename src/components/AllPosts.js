@@ -5,6 +5,7 @@ const posts = data.map(post =>
 	<div>
 		<h3>{post.title}</h3>
 		<p>By: {post.author}</p>
+		<p>{post.body}</p>
 	</div>
 );
 
