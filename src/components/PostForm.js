@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function PostForm({getPosts}) {
+export default function PostForm({updatePosts, posts}) {
 	const [formData, setFormData] = useState({});
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		e.target.reset();
+		// Update the database using the PostForm state as a body
 		axios.post('http://localhost:3000/api/posts', formData)
-			.then((res) => console.log(res))
+			// Update the app state using the response received from the database
+			.then((res) => updatePosts([...posts, res.data]))
 			.catch((err) => {
 				console.log(err) 
 			});
-			// Call a form handler here to update the app's posts
-			getPosts();
+		// Reset the form state
 		setFormData({});
 	}
 
