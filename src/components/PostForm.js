@@ -60,6 +60,7 @@ export default function PostForm({updatePosts, posts}) {
 				id="text"
 				name="body" 
 				type="text" 
+				rows="10"
 				onChange={handleInputChange}
 				required
 			/>
