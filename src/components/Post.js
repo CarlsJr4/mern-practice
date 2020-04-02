@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default function Post() {
+export default function Post({data}) {
 	return (
 		<div className="App">
-			<h1>This is a blog post!</h1>
-			{/* We need the title, author, and content here */}
-			{/* How do we identify which post was clicked? */}
+			<h1>{data.title}</h1>
+			<h3>{data.author}</h3>
+			<p>{data.body}</p>
 		</div>
 	)
 }

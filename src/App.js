@@ -5,19 +5,13 @@ import './stylesheets/App.css';
 import Home from './components/Home';
 import Post from './components/Post';
 
-// Today's goal: Click on blog posts to view them
-// Process:
-// We already have the blog content saved in the app's state
-// We just need to serve it as a route
-
-// How will we implement routing?
-// 1. Wrap app in Router component
-// 2. Provide links - the links will live on the blog post titles
-// 3. Provide a switch that renders the first component that matches the current URL 
-
 // The point of this component is to hold state and routes
+
+// Warning: You are starting to use props drilling
+// This is OK for now, since your app is small
 function App() {
 	const [posts, updatePosts] = useState([]);
+	const [currentPost, updateCurrentPost] = useState({});
 
 	// Retrieve all posts upon mounting of the app
 	useEffect(() => {
@@ -29,14 +23,22 @@ function App() {
 		getPosts();
 	}, []);
 
+	// Function is separated here to prevent a "cannot update component from inside a component" error
+	function handlePostClick(post) {
+		updateCurrentPost(post);
+	}
+
   return (
 		<Router>
 			<Switch>
 				<Route path="/" exact>
-					<Home posts={posts} updatePosts={updatePosts}/>
+					<Home 
+						posts={posts} 
+						updatePosts={updatePosts} 
+						handlePostClick={handlePostClick}/>
 				</Route>
 				<Route path="/post">
-					<Post />
+					<Post data={currentPost}/>
 				</Route>
 			</Switch>
 		</Router>

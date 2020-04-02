@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function AllPosts({data}) {
+export default function AllPosts({data, handlePostClick}) {
+	
 	const posts = data.map(post => 
 		<div key={post._id}>
 			<Link to="/post">
-				<h3>{post.title}</h3>
+				<h3 onClick={() => handlePostClick(post)}>{post.title}</h3>
 			</Link>
 			<p>By: {post.author}</p>
-			<p>{post.body}</p>
 		</div>
 	);
 
