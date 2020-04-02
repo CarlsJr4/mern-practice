@@ -19,10 +19,10 @@ function App() {
 
   return (
     <div className="App">
-			<h1>Today's posts:</h1>
-			<AllPosts data={posts} />
 			<h1>Make a post:</h1>
 			<PostForm updatePosts={updatePosts} posts={posts} />
+			<h1>Today's posts:</h1>
+			<AllPosts data={posts} />
     </div>
   );
 }
