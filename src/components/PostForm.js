@@ -4,17 +4,16 @@ import axios from 'axios';
 export default function PostForm({updatePosts, posts}) {
 	const [formData, setFormData] = useState({});
 
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
 		e.target.reset();
-		// Update the database using the PostForm state as a body
-		axios.post('http://localhost:3000/api/posts', formData)
-			// Update the app state using the response received from the database
-			.then((res) => updatePosts([...posts, res.data]))
-			.catch((err) => {
-				console.log(err) 
-			});
-		// Reset the form state
+		try {
+			const newPost = await axios.post('http://localhost:3000/api/posts', formData);
+			updatePosts([...posts, newPost.data])
+		} 
+		catch (ex) {
+			console.log(ex)
+		}
 		setFormData({});
 	}
 
