@@ -39,6 +39,7 @@ export default function PostForm({updatePosts, posts}) {
 				name="title" 
 				type="text" 
 				onChange={handleInputChange}
+				required
 			/>
 			<label 
 				htmlFor="author">
@@ -48,7 +49,8 @@ export default function PostForm({updatePosts, posts}) {
 				id="author"
 				name="author" 
 				type="text" 
-			  onChange={handleInputChange}
+				onChange={handleInputChange}
+				required
 			/>
 			<label 
 				htmlFor="text">
@@ -59,6 +61,7 @@ export default function PostForm({updatePosts, posts}) {
 				name="body" 
 				type="text" 
 				onChange={handleInputChange}
+				required
 			/>
 			<input 
 				type="submit" 
