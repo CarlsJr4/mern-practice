@@ -4,6 +4,9 @@ import axios from 'axios';
 export default function PostForm({updatePosts, posts}) {
 	const [formData, setFormData] = useState({});
 
+	// What if we did manual client-side validation using Joi?
+	// What if we separated clientside and serverside errors?
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		e.target.reset();
@@ -12,7 +15,7 @@ export default function PostForm({updatePosts, posts}) {
 			updatePosts([...posts, newPost.data])
 		} 
 		catch (ex) {
-			console.log(ex)
+			console.log(ex);
 		}
 		setFormData({});
 	}
@@ -40,6 +43,7 @@ export default function PostForm({updatePosts, posts}) {
 				type="text" 
 				onChange={handleInputChange}
 				required
+				maxLength="100"
 			/>
 			<label 
 				htmlFor="author">
@@ -51,6 +55,7 @@ export default function PostForm({updatePosts, posts}) {
 				type="text" 
 				onChange={handleInputChange}
 				required
+				maxLength="25"
 			/>
 			<label 
 				htmlFor="text">
