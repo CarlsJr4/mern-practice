@@ -5,7 +5,6 @@ export default function PostForm({updatePosts, posts}) {
 	const [formData, setFormData] = useState({});
 
 	// What if we did manual client-side validation using Joi?
-	// What if we separated clientside and serverside errors?
 
 	async function handleSubmit(e) {
 		e.preventDefault();
