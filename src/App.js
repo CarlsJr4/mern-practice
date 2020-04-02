@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import axios from 'axios';
 import './stylesheets/App.css';
 import Home from './components/Home';
+import Post from './components/Post';
 
 // Today's goal: Click on blog posts to view them
 // Process:
@@ -31,11 +32,11 @@ function App() {
   return (
 		<Router>
 			<Switch>
-				<Route path="/">
+				<Route path="/" exact>
 					<Home posts={posts} updatePosts={updatePosts}/>
 				</Route>
 				<Route path="/post">
-					{/* Insert a blog post page here */}
+					<Post />
 				</Route>
 			</Switch>
 		</Router>
