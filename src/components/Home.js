@@ -4,7 +4,7 @@ import PostForm from './PostForm';
 import AllPosts from './AllPosts';
 
 // The point of this component is to hold the home route and display relevant data
-export default function Home({updatePosts, posts, handlePostClick}) {	
+export default function Home({setAuth, updatePosts, posts, handlePostClick}) {	
 	// This hook is here so that it only triggers after authenticating
 	useEffect(() => {
 		// Need to customize app errors incase of a backend server failure
@@ -13,12 +13,8 @@ export default function Home({updatePosts, posts, handlePostClick}) {
 				headers: {'x-access-token': localStorage.getItem('jwt')}
 			});
 			updatePosts(allPosts.data);
-			// localStorage.removeItem('jwt');
 		}
 		getPosts();
-		// return function cleanup() {
-		// 	setAuth(false);
-		// }
 	}, [updatePosts]);
 
 	return (

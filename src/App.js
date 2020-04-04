@@ -40,11 +40,12 @@ function App() {
 		}
 	}
 
+	// As the app grows, how will we handle redirects?
+
   return (
 		<Router>
 			<Switch>
 				<Route path="/" exact>
-					{/* Need to redirect the user to the main app after logging in */}
 					{isAuth ? 
 						<Redirect to="/blog"/> : 
 						<Auth 
@@ -53,11 +54,15 @@ function App() {
 						/>}
 				</Route>
 				<Route path="/blog">
+					{isAuth ?
 					<Home
+						setAuth={setAuth}
 						posts={posts}
 						updatePosts={updatePosts}
 						handlePostClick={handlePostClick}
-					/>
+					/> :
+					<Redirect to="/" />
+					}
 				</Route>
 				<Route path="/post">
 					<Post data={currentPost}/>
