@@ -20,6 +20,7 @@ function App() {
 		async function getPosts() {
 			const allPosts = await axios.get('http://localhost:3000/api/posts');
 			updatePosts(allPosts.data);
+			localStorage.removeItem('jwt');
 		}
 		getPosts();
 		return function cleanup() {
@@ -32,19 +33,26 @@ function App() {
 		updateCurrentPost(post);
 	}
 
-	// When we authenticate, we need to make a POST request to the server
-	// We should await the response
-	// If successful, we need to assign the JWT to localStorage
-	// We also need to tell the app that we are signed in
 	// If unsuccessful, we need to handle this error somehow
 	// We probably need to have separate handlers for register and login
 	// Probably need to figure out a way to handle the back button so that it doesn't sign you out
 	// How can we handle the client trying to access resources without authenticating? Use auth middleware
 
-	// First, let's handle registering a user
-	function handleAuth(e) {
+	// We need to implement clientside error handling
+	async function handleAuth(e, userInfo, route) {
 		e.preventDefault();
-		setAuth(true);
+		e.target.reset();
+		try {
+			const session = await axios.post(`http://localhost:3000/api/users/${route}`, userInfo);
+			const token = session.data.token;
+			// This should be cleared clientside when the user logs out or exits the page
+			localStorage.setItem('jwt', token);
+			setAuth(true);
+		}
+		catch (ex) {
+			setAuth(false);
+			console.log(ex);
+		}
 	}
 
   return (

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 
-export default function Auth({handleAuth, isAuth}) {
+export default function Auth({handleAuth}) {
 	return (
 		<div className="App">
 			<h1>Welcome to the blog!</h1>
