@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import useFormData from '../hooks/useFormData';
 
 export default function PostForm({updatePosts, posts}) {
-	const [formData, setFormData] = useState({});
-
+	const {formData, setFormData, handleInputChange} = useFormData();
 	// What if we did manual client-side validation using Joi?
 
+	// Maybe we can add this to our custom hook when we figure out how to make it reusable
 	async function handleSubmit(e) {
 		e.preventDefault();
 		e.target.reset();
 		try {
+			// This is the reusable part
 			const newPost = await axios.post('http://localhost:3000/api/posts', formData);
 			updatePosts([...posts, newPost.data])
 		} 
@@ -17,15 +19,6 @@ export default function PostForm({updatePosts, posts}) {
 			console.log(ex);
 		}
 		setFormData({});
-	}
-
-	function handleInputChange(e) {
-		const target = e.target; // Input being updated
-		const {name, value} = target // Extract the name and value of your target
-		setFormData({
-			...formData,
-			[name]: value
-		})
 	}
 
 	return (
