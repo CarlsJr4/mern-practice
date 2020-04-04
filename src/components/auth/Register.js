@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useFormData from '../../hooks/useFormData';
 
 export default function Register({handleAuth}) {
 	const {formData, handleInputChange} = useFormData();
 
 	// Maybe we can have a cleanup effect that clears the form data state after auth? 
-	// On submit, we can call the handleRegister method using the form data in this component's state
 
 	return (
 		<div>

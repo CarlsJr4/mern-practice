@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import useFormData from '../hooks/useFormData';
 
@@ -12,7 +12,9 @@ export default function PostForm({updatePosts, posts}) {
 		e.target.reset();
 		try {
 			// This is the reusable part
-			const newPost = await axios.post('http://localhost:3000/api/posts', formData);
+			const newPost = await axios.post('http://localhost:3000/api/posts', formData, {
+				headers: {'x-access-token': localStorage.getItem('jwt')}
+			});
 			updatePosts([...posts, newPost.data])
 		} 
 		catch (ex) {

@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import PostForm from './PostForm';
 import AllPosts from './AllPosts';
 
 // The point of this component is to hold the home route and display relevant data
-export default function Home({updatePosts, posts, handlePostClick}) {
+export default function Home({updatePosts, posts, handlePostClick}) {	
+	// This hook is here so that it only triggers after authenticating
+	useEffect(() => {
+		// Need to customize app errors incase of a backend server failure
+		async function getPosts() {
+			const allPosts = await axios.get('http://localhost:3000/api/posts', {
+				headers: {'x-access-token': localStorage.getItem('jwt')}
+			});
+			updatePosts(allPosts.data);
+			// localStorage.removeItem('jwt');
+		}
+		getPosts();
+		// return function cleanup() {
+		// 	setAuth(false);
+		// }
+	}, [updatePosts]);
+
 	return (
 		<div className="App">
 			<h1>Make a post:</h1>
