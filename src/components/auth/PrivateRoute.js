@@ -8,7 +8,7 @@ const PrivateRoute = ({children, ...rest}) => {
 	return (
 		<Route {...rest}>
 			{
-				rest.isAuth ? children : <Redirect to="/"/>
+				rest.token ? children : <Redirect to="/"/>
 			}
 		</Route>
 	)

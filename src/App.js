@@ -9,22 +9,16 @@ import Auth from './components/auth/Auth';
 
 // The point of this component is to hold state and routes
 function App() {
-	const [isAuth, setAuth] = useState(false);
-	const [posts, updatePosts] = useState([]);
-	const [currentPost, updateCurrentPost] = useState({});
+	const token = localStorage.getItem('jwt');
+	const [posts, updatePosts] = useState([]); // Keep track of all posts in the all
+	const [currentPost, updateCurrentPost] = useState({}); // Keep track of which post to render when accessing a post 
 
 		// Function is separated here to prevent a "cannot update component from inside a component" error
 		function handlePostClick(post) {
 			updateCurrentPost(post);
 		}
 
-	// If unsuccessful, we need to handle this error somehow
-	// Probably need to figure out a way to handle the back button so that it doesn't sign you out
-	// How can we handle the client trying to access resources without authenticating? Use auth middleware
 	// We could store errors in the state and render them in the client
-	// The app needs a way to determine which post we are looking at
-
-	// Next task: Implement private routes using higher order components
 	async function handleAuth(e, userInfo, route) {
 		e.preventDefault();
 		e.target.reset();
@@ -33,34 +27,31 @@ function App() {
 			const token = session.data.token;
 			// This should be cleared clientside when the user logs out or exits the page
 			localStorage.setItem('jwt', token);
-			setAuth(true);
 		}
 		catch (ex) {
-			setAuth(false);
 			console.log(ex);
 		}
 	}
+
+	// Maybe instead of setting auth in the state, we check if the browser has a JWT
 
   return (
 		<Router>
 			<Switch>
 				<Route path="/" exact>
-					{isAuth ? 
+					{token ? 
 						<Redirect to="/blog"/> : 
-						<Auth 
-							isAuth={isAuth} 
-							handleAuth={handleAuth}
-						/>}
+						<Auth />
+					}
 				</Route>
-				<PrivateRoute path="/blog" isAuth={isAuth}>
+				<PrivateRoute path="/blog" token={token}>
 					<Home
-						setAuth={setAuth}
 						posts={posts}
 						updatePosts={updatePosts}
 						handlePostClick={handlePostClick}
 					/> 
 				</PrivateRoute>
-				<PrivateRoute path="/post" isAuth={isAuth}>
+				<PrivateRoute path="/post" token={token}>
 					<Post data={currentPost}/>
 				</PrivateRoute>
 			</Switch>
