@@ -40,18 +40,6 @@ export default function PostForm({updatePosts, posts}) {
 				maxLength="100"
 			/>
 			<label 
-				htmlFor="author">
-					Author:
-			</label>
-			<input 
-				id="author"
-				name="author" 
-				type="text" 
-				onChange={handleInputChange}
-				required
-				maxLength="25"
-			/>
-			<label 
 				htmlFor="text">
 					Text:
 			</label>

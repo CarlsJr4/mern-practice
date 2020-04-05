@@ -8,7 +8,7 @@ export default function AllPosts({data, handlePostClick}) {
 			<Link to="/post">
 				<h3 onClick={() => handlePostClick(post)}>{post.title}</h3>
 			</Link>
-			<p>By: {post.author}</p>
+			<p>By: {post.author.username}</p>
 		</div>
 	);
 
