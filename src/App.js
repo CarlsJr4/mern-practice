@@ -9,6 +9,7 @@ import Auth from './components/auth/Auth';
 
 // The point of this component is to hold state and routes
 function App() {
+	const [isAuth, setAuth] = useState(false);
 	const token = localStorage.getItem('jwt');
 	const [posts, updatePosts] = useState([]); // Keep track of all posts in the all
 	const [currentPost, updateCurrentPost] = useState({}); // Keep track of which post to render when accessing a post 
@@ -27,6 +28,7 @@ function App() {
 			const token = session.data.token;
 			// This should be cleared clientside when the user logs out or exits the page
 			localStorage.setItem('jwt', token);
+			setAuth(true);
 		}
 		catch (ex) {
 			console.log(ex);
@@ -39,9 +41,9 @@ function App() {
 		<Router>
 			<Switch>
 				<Route path="/" exact>
-					{token ? 
+					{isAuth ? 
 						<Redirect to="/blog"/> : 
-						<Auth />
+						<Auth handleAuth={handleAuth} />
 					}
 				</Route>
 				<PrivateRoute path="/blog" token={token}>
