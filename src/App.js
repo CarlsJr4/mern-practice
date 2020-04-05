@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import PrivateRoute from './components/auth/PrivateRoute';
 import axios from 'axios';
 import './stylesheets/App.css';
 import Home from './components/Home';
@@ -23,7 +24,7 @@ function App() {
 	// We could store errors in the state and render them in the client
 	// The app needs a way to determine which post we are looking at
 
-	// Next task: We need to implement clientside error handling
+	// Next task: Implement private routes using higher order components
 	async function handleAuth(e, userInfo, route) {
 		e.preventDefault();
 		e.target.reset();
@@ -40,8 +41,6 @@ function App() {
 		}
 	}
 
-	// As the app grows, how will we handle redirects?
-
   return (
 		<Router>
 			<Switch>
@@ -53,20 +52,17 @@ function App() {
 							handleAuth={handleAuth}
 						/>}
 				</Route>
-				<Route path="/blog">
-					{isAuth ?
+				<PrivateRoute path="/blog" isAuth={isAuth}>
 					<Home
 						setAuth={setAuth}
 						posts={posts}
 						updatePosts={updatePosts}
 						handlePostClick={handlePostClick}
-					/> :
-					<Redirect to="/" />
-					}
-				</Route>
-				<Route path="/post">
+					/> 
+				</PrivateRoute>
+				<PrivateRoute path="/post" isAuth={isAuth}>
 					<Post data={currentPost}/>
-				</Route>
+				</PrivateRoute>
 			</Switch>
 		</Router>
   );
