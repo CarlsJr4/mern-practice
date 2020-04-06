@@ -7,6 +7,10 @@ import Home from './components/Home';
 import Post from './components/Post';
 import Auth from './components/auth/Auth';
 
+// Current bugs we need to fix
+// Fix handling redirects after logging out
+// Prevent the user from accessing login while authenticated
+
 // The point of this component is to hold state and routes
 function App() {
 	const [isAuth, setAuth] = useState(false);
@@ -14,10 +18,10 @@ function App() {
 	const [currentPost, updateCurrentPost] = useState({}); // Keep track of which post to render when accessing a post 
 	const token = localStorage.getItem('jwt');
 	
-		// Function is separated here to prevent a "cannot update component from inside a component" error
-		function handlePostClick(post) {
-			updateCurrentPost(post);
-		}
+	// Function is separated here to prevent a "cannot update component from inside a component" error
+	function handlePostClick(post) {
+		updateCurrentPost(post);
+	}
 
 	// We could store errors in the state and render them in the client
 	async function handleAuth(e, userInfo, route) {
@@ -25,16 +29,14 @@ function App() {
 		e.target.reset();
 		try {
 			const session = await axios.post(`http://localhost:3000/api/users/${route}`, userInfo);
-			const token = session.data.token;
-			const user = session.data.user;
-			// This should be cleared clientside when the user logs out or exits the page
+			const {token, user} = session.data
 			localStorage.setItem('jwt', token);
 			// We pull properties out of the user so we don't store certain info in localstorage
-			const userInfo = {
+			const userProperties = {
 				username: user.username
 			}
-			localStorage.setItem('userInfo', JSON.stringify(userInfo));
-			setAuth(true);
+			localStorage.setItem('user', JSON.stringify(userProperties));
+			setAuth(true); // To allow the login page to redirect the user to the blog
 		}
 		catch (ex) {
 			console.log(ex);
@@ -47,7 +49,7 @@ function App() {
 		<Router>
 			<Switch>
 				<Route path="/" exact>
-					{isAuth ? 
+					{(isAuth || token) ? 
 						<Redirect to="/blog"/> : 
 						<Auth handleAuth={handleAuth} />
 					}

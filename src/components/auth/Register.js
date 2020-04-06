@@ -42,7 +42,7 @@ export default function Register({handleAuth}) {
 				/>
 				<input 
 					type="submit" 
-					value="Login"
+					value="Register"
 				/>
 			</form>
 		</div>
