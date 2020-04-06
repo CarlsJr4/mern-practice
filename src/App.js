@@ -43,13 +43,11 @@ function App() {
 		}
 	}
 
-	// Maybe instead of setting auth in the state, we check if the browser has a JWT
-
   return (
 		<Router>
 			<Switch>
 				<Route path="/" exact>
-					{(isAuth || token) ? 
+					{(isAuth || token) ? // We use || here because isAuth becomes false upon refresh. It also helps us redirect the user.
 						<Redirect to="/blog"/> : 
 						<Auth handleAuth={handleAuth} />
 					}
@@ -59,6 +57,7 @@ function App() {
 						posts={posts}
 						updatePosts={updatePosts}
 						handlePostClick={handlePostClick}
+						setAuth={setAuth}
 					/> 
 				</PrivateRoute>
 				<PrivateRoute path="/post" token={token}>
