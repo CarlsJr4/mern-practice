@@ -18,6 +18,7 @@ export default function Home({updatePosts, posts, handlePostClick, setAuth}) {
 			updatePosts(allPosts.data);
 		}
 		getPosts();
+		setAuth(true);
 	}, [updatePosts]);
 
 	return (

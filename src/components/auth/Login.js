@@ -1,9 +1,7 @@
 import React from 'react';
 import useFormData from '../../hooks/useFormData';
 
-
-// When this is submitted, do stuff to the app
-// Should these forms have their own state here? Do we even need to lift this state up?
+// We need to figure out how to reroute using history instead of state
 export default function Login({handleAuth}) {
 	const {formData, handleInputChange} = useFormData();
 	
